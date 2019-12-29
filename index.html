@@ -134,8 +134,7 @@
             function translate_word(word) {
 
 
-                var api_url = "http://146.148.85.67/processWordJSON?inString=" + word + "&lang=" + curr_lang
-                    .toLowerCase();
+                var api_url = "http://146.148.85.67/processWordJSON?inString=" + word + "&lang=" + curr_lang.toLowerCase();
                 getIss();
                 async function getIss() {
                     const response = await fetch(api_url, {
