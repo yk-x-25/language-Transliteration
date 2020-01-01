@@ -1,5 +1,5 @@
 # Language Translation
-Get instantaneous translation letter by letter .Even word matters! Choose over 10+ sugesstions for each word.
+Get instantaneous translation letter by letter .Every letter matters! Choose over 10+ sugesstions for each word.
 # How to use?
 * Select the language to which you want to convert
 * Type the Word
