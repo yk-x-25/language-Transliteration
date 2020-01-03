@@ -2,8 +2,8 @@
 <html>
 
 <head>
-    <meta name="author" content="Ben Howdle and Dan Matthew">
-    <meta name="description" content="A responsive movie poster grabber">
+
+
     <title>Language Translation</title>
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -43,65 +43,65 @@
         </div>
         <div id="mainsu" style="float:left; margin-left:100px;">
             <h1 color:white;>Suggestions</h1>
-            <section id="suggest">
-                <div id="suggestions"></div>
-            </section>
+            <div class="suggest" id="suggest">
+                <div class="suggestions" id="suggestions"></div>
+            </div>
 
         </div>
         <script>
             const textinp = document.querySelector('.txtbox');
             var search_word = "";
-            
+            var notSpace = true;
             var dictionary = new Object();
             var word_start = 0;
             var pointer_ct = search_word.length;
             var swlen;
-            var prev_key=17;
+            var prev_key = 17;
             window.onload = function () {
                 var decodedCookie = decodeURIComponent(document.cookie).split("=");
                 addnew();
                 curr_lang = decodedCookie[1];
-                
+
 
                 $('#lang').html(decodedCookie[1]);
             }
-            
+
             textinp.addEventListener("keyup", function () {
-                if(document.getElementById("txt_inp").value.length==0)
-                 search_word="";
-                
+                if (document.getElementById("txt_inp").value.length == 0) {
+                    search_word = "";
+                    word_start = 0;
+                }
+
                 var key = event.keyCode || event.charCode;
-                
-                if( !(key>=37 &&key<=40)&& key!=46&&key!=8)
-                    search_word+=document.getElementById("txt_inp").value.slice(-1)
-                    if(key==13)
-                 { 
-                  if(search_word.length>1)
-                   translate_word(search_word.slice(0,-1));
-                    
-                     search_word="";
-                 }
-                if(key==8)
-                 {
-                     search_word=search_word.slice(0,-1);
-                 closeList();
-                 console.log(search_word);
-                 }
-                
-                if(key==32)    
-                 {
-                 closeList();
-                
-                 search_word="";
-                 } 
-      
-                 console.log(search_word)
-                 if(search_word.length>0)
-                 translate_word(search_word)
-               
+
+                if (!(key >= 37 && key <= 40) && key != 46 && key != 8)
+                    search_word += document.getElementById("txt_inp").value.slice(-1)
+                if (key == 13) {
+                    if (search_word.length > 1)
+                        if (KeyAlreadyPresent(search_word.slice(0, -1)))
+                            autocomplete(dictionary[search_word.slice(0, -1)]);
+                        else
+                            translate_word(search_word.slice(0, -1));
+
+                    search_word = "";
+                }
+                if (key == 8) {
+                    search_word = search_word.slice(0, -1);
+                    closeList();
+                }
+
+                if (key == 32) {
+                    closeList();
+                    notSpace=false;
+                    search_word = "";
+                }
+                if (search_word.length > 0)
+                    if (KeyAlreadyPresent(search_word))
+                        autocomplete(dictionary[search_word]);
+                    else
+                        translate_word(search_word);
+
             })
-
-
             var languageselect = ["Tamil", "Hindi", "Telugu", "Bengali", "Gujarati", "Marathi", "Kannada",
                 "Malayalam",
                 "Punjabi", "Nepali", "English"
@@ -119,19 +119,18 @@
             }
 
             function langsel(val) {
-
-
                 curr_lang = languageselect[val];
-
                 document.cookie = "curr_lang=" + curr_lang;
-
-
                 $('#lang').html(curr_lang);
             }
 
+            function KeyAlreadyPresent(key) {
+                if (dictionary[key] != undefined)
+                    return true;
+                return false;
+            }
+
             function translate_word(word) {
-
-
                 var api_url = "http://146.148.85.67/processWordJSON?inString=" + word + "&lang=" + curr_lang
                     .toLowerCase();
                 getIss();
@@ -149,50 +148,49 @@
                 return document.getElementById("txt_inp").value.length;
             }
 
-
             function autocomplete(arr) {
 
+                closeList();
                 for (var i = 0; i < arr.length; i++) {
-                    console.log(arr[i]);
-
                     b = document.createElement("DIV");
                     b.setAttribute("id", "sug-dropdrown");
+                    b.setAttribute("class", "sug-dropdown");
                     b.innerHTML = "<strong>" + arr[i] + "</strong>";
-
                     b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-
+                    document.getElementById("suggest").appendChild(b);
                     b.addEventListener("click", function (e) {
                         var textAreaInp = document.getElementById("txt_inp").value;
-
+                                    console.log(textAreaInp.length);
+                                    if (!notSpace)
+                                    {word_start+=1;}
                         document.getElementById("txt_inp").value = document.getElementById("txt_inp").value
                             .replace(textAreaInp.substring(word_start, textAreaInp.length),
                                 this.getElementsByTagName("input")[0].value
                             );
-                        word_start = getInpLength() + 1;
+                            notSpace=true;
+                   
+                        word_start = getInpLength();
                         closeList();
+                        
+                        search_word = "";
+                        
 
                     });
-                    document.getElementById("suggest").appendChild(b);
 
                 }
-
-
             }
 
             function closeList() {
-
-                console.log("hrtr")
                 document.getElementById("suggest").remove();
                 b = document.createElement("DIV");
                 b.setAttribute("id", "suggest");
                 document.getElementById("mainsu").appendChild(b);
 
 
+
+
             }
         </script>
-
 </body>
 
 </html>
-
-
