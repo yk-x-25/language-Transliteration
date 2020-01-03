@@ -76,7 +76,9 @@ h1 {
       margin-top: 5px;
       cursor: pointer;
   }
-  #suggestions:hover
-  {
-    color:black;
+
+  .sug-dropdown:hover {
+    background-color: #e9e9e9; 
+    color: black;
   }
+  
