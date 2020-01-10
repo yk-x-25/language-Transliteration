@@ -32,7 +32,7 @@ def handledownload():
                     write.writerow([TranslationLibrary['Word_in_English'][i].decode('utf-8'),TranslationLibrary['translation'][i].decode('utf-8')])
 
             f.close()
-        return send_file(os.getcwd()+'\output.csv',as_attachment=True,cache_timeout=1)
+        return send_file('output.csv',as_attachment=True,cache_timeout=1)
     
 #
 if __name__ == "__main__":
