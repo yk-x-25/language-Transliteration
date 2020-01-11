@@ -14,7 +14,7 @@ Get instantaneous translation letter by letter .Every letter matters! Choose ove
 
 * Word is formed by appending each of the letter and that's how the suggestions are made at letter level.
 
-# Download Route
+# Download
  * You can download the word you typed with the respective transliteration now as a CSV format.
  ``` \download ``` will produce a output.csv file with all the typed inputs in the current session. Also, You can download by  cclicking on the download button.
  
