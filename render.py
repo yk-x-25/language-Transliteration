@@ -22,6 +22,7 @@ def handledownload():
     
     if request.method=='POST':
         data=request.get_json()
+        console.log(data)
         # making the id to be non array
         _id=data['language']
 
