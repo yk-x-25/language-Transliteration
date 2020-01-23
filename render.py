@@ -44,18 +44,19 @@ def handledownload():
         
 
         output = rec.find_one({'_id': _id})
-        with open('output.csv','w',newline="",encoding="utf-8") as f:
-            write=csv.writer(f)
-            col1=output['Word_in_English']
-            col2=output['translation']
-            if len(col1)>1 and len(col1)==len(col2):
+        if output:
+            with open('output.csv','w',newline="",encoding="utf-8") as f:
+                write=csv.writer(f)
+                col1=output['Word_in_English']
+                col2=output['translation']
+                if len(col1)>1 and len(col1)==len(col2):
                
-                write.writerow(['Word_in_English','translation'])
-                for i in range(len(col1)):
-                    write.writerow([col1[i],col2[i]])
+                    write.writerow(['Word_in_English','translation'])
+                    for i in range(len(col1)):
+                        write.writerow([col1[i],col2[i]])
         
 
-            f.close()
+                f.close()
 
             
         return send_file('output.csv',as_attachment=True,cache_timeout=1)
