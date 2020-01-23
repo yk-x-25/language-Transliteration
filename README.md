@@ -13,14 +13,3 @@ Get instantaneous translation letter by letter .Every letter matters! Choose ove
 * After the api call, the typed word is replaced with the translated word
 
 * Word is formed by appending each of the letter and that's how the suggestions are made at letter level.
-* Everytime, the user clicks the choice, an Xhr request is made which posts to the server with a json containing the word-translation pair.
-* The backend python stores the pair as a dictionary(key-value store).
-* When user clicks the download button,a GET request is made and all the dictionary values are inserted into the csv file stored in heroku by default(created by hardcoding it on heroku file structure).
-
-
-# Download
- * You can download the word you typed with the respective transliteration now as a CSV format.
- ``` \download ``` will produce a output.csv file with all the typed inputs in the current session. Also, You can download by  cclicking on the download button.
- 
- # Deployment 
- * Heroku Procfile handles the deployment in heroku. Gunicorn is a WSGI HTTP server for handling multiple requests at the same time.
